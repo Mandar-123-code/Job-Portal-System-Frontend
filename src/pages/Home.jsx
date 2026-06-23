@@ -285,7 +285,23 @@ function Home() {
               key={name}
               className="text-lg sm:text-xl font-bold text-slate-500 hover:text-slate-900 transition-colors"
             >
-              {name}
+              {name === "Google" ? (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 7h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1zm0 0V6a2 2 0 012-2h5a2 2 0 012 2v1"
+                  />
+                </svg>
+              ) : (
+                name
+              )}
             </span>
           ))}
         </div>

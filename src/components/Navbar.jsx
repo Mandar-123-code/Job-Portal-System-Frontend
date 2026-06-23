@@ -75,7 +75,21 @@ function Navbar() {
                   className="w-6 h-6 text-white"
                 >
                   <path
-                    d="M8 6h8M8 10h8M8 14h8M8 18h8"
+                    d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 8h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2v-8a2 2 0 012-2z"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M9 12h6"
                     stroke="currentColor"
                     strokeWidth="1.8"
                     strokeLinecap="round"

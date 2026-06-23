@@ -83,7 +83,7 @@ function Footer() {
             <Link to="/" className="flex items-center gap-3 mb-4 sm:mb-5 group">
               <div className="w-9 h-9 shrink-0 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm border border-slate-100 group-hover:shadow-md transition-all duration-300">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
+                  src="https://img.icons8.com/fluency/48/000000/briefcase.png"
                   alt="CareerFlow Logo"
                   className="w-full h-full object-contain"
                 />
