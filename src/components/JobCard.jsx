@@ -10,6 +10,7 @@ export default function JobCard({
   onWithdraw,
   onDelete,
   highlight,
+  currentUserId,
 }) {
   const isExpired = job.expiresAt
     ? new Date(job.expiresAt) < new Date()
@@ -22,6 +23,18 @@ export default function JobCard({
         ),
       )
     : null;
+
+  const normalizedRole = String(role || "").toLowerCase();
+  const normalizedUserId = currentUserId ? String(currentUserId).trim() : "";
+
+  const getOwnerId = (createdBy) => {
+    if (!createdBy) return null;
+    if (typeof createdBy === "string") return createdBy;
+    if (createdBy._id) return String(createdBy._id);
+    if (createdBy.id) return String(createdBy.id);
+    if (typeof createdBy.toString === "function") return createdBy.toString();
+    return null;
+  };
 
   return (
     <article className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-8 hover:shadow-xl hover:border-gray-200 transition-all duration-300 flex flex-col justify-between h-full relative group">
@@ -126,55 +139,78 @@ export default function JobCard({
         </div>
 
         <div className="flex items-center gap-2">
-          {role === "recruiter" ? (
-            <button
-              onClick={() => onDelete && onDelete(job._id)}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white border border-rose-100 hover:border-rose-600 shadow-sm transition-all duration-200 cursor-pointer"
-            >
-              Delete Job
-            </button>
-          ) : (
-            (role === "candidate" || !role) && (
-              <div className="flex items-center gap-2">
-                {/* Apply Button */}
-                {!applied ? (
+          {(() => {
+            if (normalizedRole === "recruiter") {
+              const ownerId = getOwnerId(job?.createdBy);
+              const isOwner = ownerId && normalizedUserId && ownerId === normalizedUserId;
+
+              if (!isOwner) {
+                console.debug("JobCard: recruiter not owner", {
+                  jobId: job._id,
+                  ownerId,
+                  currentUserId: normalizedUserId,
+                });
+              }
+
+              if (isOwner) {
+                return (
                   <button
-                    onClick={() => onApply && onApply(job._id)}
-                    disabled={isExpired}
-                    className={`px-5 py-2.5 rounded-xl text-xs font-bold shadow-sm transition-all duration-300 shrink-0 cursor-pointer ${
-                      isExpired
-                        ? "bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed"
-                        : "bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-md hover:-translate-y-0.5"
-                    }`}
+                    type="button"
+                    onClick={() => onDelete && onDelete(job._id)}
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white border border-rose-100 hover:border-rose-600 shadow-sm transition-all duration-200 cursor-pointer"
                   >
-                    {isExpired ? "Expired" : "Apply Now ➔"}
+                    Delete Job
                   </button>
-                ) : (
-                  /* Applied State with Withdraw controller if eligible */
-                  <div className="flex flex-col items-end gap-1">
-                    <span className="bg-emerald-50 text-emerald-700 font-bold px-3 py-1.5 rounded-xl text-[10px] border border-emerald-100 uppercase tracking-wider flex items-center gap-1 shadow-sm">
-                      Applied ✓
-                    </span>
-                    {!applicationStatus || applicationStatus === "applied" ? (
-                      <button
-                        onClick={() => onWithdraw && onWithdraw(applicationId)}
-                        className="text-[10px] text-rose-600 hover:text-rose-800 hover:underline font-extrabold focus:outline-none transition-colors cursor-pointer"
-                      >
-                        Withdraw
-                      </button>
-                    ) : (
-                      <span
-                        className="text-[9px] text-gray-400 font-semibold"
-                        title="Under review or accepted applications cannot be withdrawn."
-                      >
-                        🔒 In Pipeline
+                );
+              }
+              return null;
+            }
+
+            if (role === "candidate" || !role) {
+              return (
+                <div className="flex items-center gap-2">
+                  {/* Apply Button */}
+                  {!applied ? (
+                    <button
+                      onClick={() => onApply && onApply(job._id)}
+                      disabled={isExpired}
+                      className={`px-5 py-2.5 rounded-xl text-xs font-bold shadow-sm transition-all duration-300 shrink-0 cursor-pointer ${
+                        isExpired
+                          ? "bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed"
+                          : "bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-md hover:-translate-y-0.5"
+                      }`}
+                    >
+                      {isExpired ? "Expired" : "Apply Now ➔"}
+                    </button>
+                  ) : (
+                    /* Applied State with Withdraw controller if eligible */
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="bg-emerald-50 text-emerald-700 font-bold px-3 py-1.5 rounded-xl text-[10px] border border-emerald-100 uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                        Applied ✓
                       </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            )
-          )}
+                      {!applicationStatus || applicationStatus === "applied" ? (
+                        <button
+                          onClick={() => onWithdraw && onWithdraw(applicationId)}
+                          className="text-[10px] text-rose-600 hover:text-rose-800 hover:underline font-extrabold focus:outline-none transition-colors cursor-pointer"
+                        >
+                          Withdraw
+                        </button>
+                      ) : (
+                        <span
+                          className="text-[9px] text-gray-400 font-semibold"
+                          title="Under review or accepted applications cannot be withdrawn."
+                        >
+                          🔒 In Pipeline
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            return null;
+          })()}
         </div>
       </div>
     </article>

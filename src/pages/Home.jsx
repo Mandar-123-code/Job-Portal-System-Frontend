@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAllJobs } from "../services/jobsService";
+import { getAllJobs, deleteJob } from "../services/jobsService";
 import JobSearchBar from "../components/JobSearchBar";
 import JobCard from "../components/JobCard";
 import Loader from "../components/Loader";
@@ -54,11 +54,23 @@ const STEPS = [
 function Home() {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
+  const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const highlight = (text) => text;
 
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState({
+    isOpen: false,
+    title: "",
+    message: "",
+    confirmLabel: "",
+    cancelLabel: "",
+    onConfirm: null,
+    isDanger: false,
+    jobTitle: "",
+    company: "",
+  });
   const [search, setSearch] = useState("");
   const [companyFilter, setCompanyFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
@@ -81,6 +93,53 @@ function Home() {
 
   const featured = jobs.slice(0, 3);
   const jobCount = jobs.length;
+
+  const showModal = (options) => {
+    setModal({
+      isOpen: true,
+      title: options.title,
+      message: options.message,
+      confirmLabel: options.confirmLabel || "Confirm",
+      cancelLabel: options.cancelLabel || "Cancel",
+      onConfirm: options.onConfirm,
+      isDanger: !!options.isDanger,
+      jobTitle: options.jobTitle || "",
+      company: options.company || "",
+    });
+  };
+
+  const closeModal = () => setModal((m) => ({ ...m, isOpen: false }));
+
+  const handleDelete = (id) => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    const job = jobs.find((j) => j._id === id);
+    console.debug("handleDelete called", { id, token });
+
+    showModal({
+      title: "Delete Job Posting",
+      message:
+        "Are you sure you want to permanently delete this job listing? This action is irreversible and all candidate applications will be lost.",
+      confirmLabel: "Delete Listing",
+      cancelLabel: "Keep Listing",
+      isDanger: true,
+      jobTitle: job?.title || "Job Posting",
+      company: job?.company || "Company",
+      onConfirm: async () => {
+        console.debug("modal confirm clicked for", id);
+        try {
+          await deleteJob(id);
+          setJobs((prev) => prev.filter((j) => j._id !== id));
+          console.debug("deleteJob succeeded", id);
+        } catch (err) {
+          console.error("Delete job failed", err);
+        }
+      },
+    });
+  };
 
   const handleSearch = () => {
     const qs = buildJobSearchParams({
@@ -169,6 +228,33 @@ function Home() {
         </div>
       </section>
 
+        {/* Confirmation Modal */}
+        {modal.isOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm transition-all duration-300">
+            <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-gray-100 transform scale-100 transition-all">
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-3xl">🗑️</div>
+              </div>
+
+              <h3 className="text-xl font-bold text-gray-900 text-center mb-2">{modal.title}</h3>
+
+              {(modal.jobTitle || modal.company) && (
+                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 mb-4 text-center">
+                  <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-1">{modal.company}</span>
+                  <span className="text-base font-bold text-gray-800">{modal.jobTitle}</span>
+                </div>
+              )}
+
+              <p className="text-gray-500 text-center text-sm mb-8 leading-relaxed">{modal.message}</p>
+
+              <div className="flex items-center gap-3">
+                <button onClick={closeModal} className="flex-1 py-3 px-4 rounded-xl border border-gray-200 text-gray-600 font-semibold hover:bg-gray-50 transition-colors text-sm cursor-pointer">{modal.cancelLabel}</button>
+                <button onClick={() => { modal.onConfirm && modal.onConfirm(); closeModal(); }} className={`flex-1 py-3 px-4 rounded-xl text-white font-semibold shadow-md transition-all duration-200 text-sm cursor-pointer hover:-translate-y-0.5 ${modal.isDanger ? 'bg-rose-600 hover:bg-rose-700' : 'bg-indigo-600 hover:bg-indigo-700'}`}>{modal.confirmLabel}</button>
+              </div>
+            </div>
+          </div>
+        )}
+
       {/* Stats */}
       <section className="relative -mt-8 sm:-mt-10 max-w-5xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
@@ -210,7 +296,7 @@ function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 sm:mb-14">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              How JobPortal works
+              How CareerFlow works
             </h2>
             <p className="text-slate-500 mt-2 max-w-lg mx-auto">
               From search to offer — a streamlined path built for modern job
@@ -266,10 +352,11 @@ function Home() {
                 key={job._id}
                 job={job}
                 role={role}
+                currentUserId={userId}
                 applied={false}
                 onApply={() => navigate("/login")}
                 onWithdraw={() => {}}
-                onDelete={() => {}}
+                onDelete={handleDelete}
                 highlight={highlight}
               />
             ))}

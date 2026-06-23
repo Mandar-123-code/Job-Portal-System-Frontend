@@ -32,6 +32,7 @@ function Jobs() {
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const params = parseJobSearchParams(location.search);
@@ -388,6 +389,7 @@ function Jobs() {
                 <JobCard
                   job={job}
                   role={role}
+                    currentUserId={userId}
                   applied={!!app}
                   applicationId={app?._id}
                   applicationStatus={app?.status}

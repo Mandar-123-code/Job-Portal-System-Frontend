@@ -44,7 +44,7 @@ function About() {
             </span>
           </h1>
           <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            JobPortal was founded with a single mission: to break down barriers
+            CareerFlow was founded with a single mission: to break down barriers
             between passionate talent and fast-growing organizations worldwide.
           </p>
         </div>
@@ -71,7 +71,7 @@ function About() {
         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-              Why We Started JobPortal
+              Why We Started CareerFlow
             </h2>
             <p className="text-gray-600 leading-relaxed text-sm">
               We realized that standard recruitment platforms are filled with
@@ -112,7 +112,7 @@ function About() {
                 JP
               </div>
               <div>
-                <div className="font-bold text-xs">The JobPortal Team</div>
+                <div className="font-bold text-xs">The CareerFlow Team</div>
                 <div className="text-[10px] text-indigo-600">
                   Global Recruitment Devs
                 </div>

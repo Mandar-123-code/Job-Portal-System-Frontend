@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const DISMISS_KEY = "jobportal_login_toast_dismissed";
+const DISMISS_KEY = "careerflow_login_toast_dismissed";
 
 function LoginToast() {
   const location = useLocation();

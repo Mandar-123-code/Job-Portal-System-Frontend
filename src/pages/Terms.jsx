@@ -5,7 +5,7 @@ function Terms() {
     {
       title: "1. Fair Use Guidelines",
       icon: "🤝",
-      desc: "By registering on JobPortal, you agree to represent your professional experience, education history, and corporate entity identities truthfully. Impersonation of brands or false candidate profiles is strictly forbidden.",
+      desc: "By registering on CareerFlow, you agree to represent your professional experience, education history, and corporate entity identities truthfully. Impersonation of brands or false candidate profiles is strictly forbidden.",
     },
     {
       title: "2. Recruiter Fair Opportunity Policies",
@@ -20,7 +20,7 @@ function Terms() {
     {
       title: "4. Intellectual Property & Rights",
       icon: "📄",
-      desc: "All source files, code, design marks, assets, and layouts are the exclusive property of JobPortal. You may not scrape listings, distribute candidate files, or copy system structure without explicit formal written permission.",
+      desc: "All source files, code, design marks, assets, and layouts are the exclusive property of CareerFlow. You may not scrape listings, distribute candidate files, or copy system structure without explicit formal written permission.",
     },
   ];
 
@@ -37,7 +37,7 @@ function Terms() {
             Terms of Service
           </h1>
           <p className="text-gray-500 text-sm max-w-xl mx-auto">
-            Last Updated: May 17, 2026. By accessing or using the JobPortal interface, you formally agree to comply with our community standard clauses.
+            Last Updated: May 17, 2026. By accessing or using the CareerFlow interface, you formally agree to comply with our community standard clauses.
           </p>
         </div>
 

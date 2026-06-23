@@ -56,7 +56,7 @@ function Footer() {
     setModalData({
       title: "💼 Employer Account Required",
       message: `The "${pageName}" section is reserved exclusively for Recruiters and Employers.`,
-      submessage: "As a Candidate, all JobPortal services—including searching, filtering, and applying for jobs—are completely 100% free for you! 🌟"
+      submessage: "As a Candidate, all CareerFlow services—including searching, filtering, and applying for jobs—are completely 100% free for you! 🌟"
     });
   };
 
@@ -83,13 +83,13 @@ function Footer() {
             <Link to="/" className="flex items-center gap-3 mb-4 sm:mb-5 group">
               <div className="w-9 h-9 shrink-0 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm border border-slate-100 group-hover:shadow-md transition-all duration-300">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/3256/3256163.png"
-                  alt="JobPortal Logo"
+                  src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
+                  alt="CareerFlow Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
               <span className="text-lg font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
-                JobPortal
+                CareerFlow
               </span>
             </Link>
             <p className="text-slate-500 text-sm leading-relaxed mb-0 lg:mb-6 max-w-sm mx-auto lg:mx-0">
@@ -224,7 +224,7 @@ function Footer() {
         {/* Footer Base divider */}
         <div className="border-t border-slate-200/60 mt-8 sm:mt-10 lg:mt-12 pt-6 sm:pt-8 flex flex-col-reverse sm:flex-row justify-between items-center gap-4 sm:gap-6 text-center sm:text-left">
           <p className="text-xs font-medium text-slate-400 max-w-md leading-relaxed">
-            &copy; {new Date().getFullYear()} JobPortal Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} CareerFlow Inc. All rights reserved.
             <span className="hidden sm:inline"> Created with absolute precision.</span>
           </p>
 

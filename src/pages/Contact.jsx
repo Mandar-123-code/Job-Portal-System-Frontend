@@ -63,7 +63,7 @@ function Contact() {
               </span>
               <div>
                 <h4 className="font-bold text-gray-900">Email Support</h4>
-                <p className="text-sm text-gray-500 mt-0.5">support@jobportal.example.com</p>
+                <p className="text-sm text-gray-500 mt-0.5">support@careerflow.example.com</p>
                 <p className="text-xs text-indigo-600 font-semibold mt-0.5">Response within 24 hours</p>
               </div>
             </div>
@@ -94,7 +94,7 @@ function Contact() {
           </div>
 
           <p className="text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} JobPortal Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} CareerFlow Inc. All rights reserved.
           </p>
         </div>
 

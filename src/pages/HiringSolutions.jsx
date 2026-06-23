@@ -79,7 +79,7 @@ function HiringSolutions() {
               Scale Your Team Wisely
             </h1>
             <p className="text-gray-500 mt-3 leading-relaxed">
-              Accelerate your talent acquisition funnel. JobPortal Enterprise brings advanced screening, intelligent analytics, and custom CRM integrations to your hiring pipeline.
+              Accelerate your talent acquisition funnel. CareerFlow Enterprise brings advanced screening, intelligent analytics, and custom CRM integrations to your hiring pipeline.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ function HiringSolutions() {
               <div>
                 <h4 className="font-bold text-gray-900">Seamless CRM & ATS Sync</h4>
                 <p className="text-sm text-gray-500 mt-1">
-                  Connect JobPortal to your company’s internal Workday, Greenhouse, or Lever trackers with secure API webhooks.
+                  Connect CareerFlow to your company’s internal Workday, Greenhouse, or Lever trackers with secure API webhooks.
                 </p>
               </div>
             </div>

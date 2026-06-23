@@ -17,6 +17,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import NotFound from "./pages/NotFound";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
@@ -83,14 +84,7 @@ function App() {
           />
 
           {/* 404 ROUTE */}
-          <Route
-            path="*"
-            element={
-              <div className="flex justify-center items-center h-[70vh] text-2xl font-bold">
-                404 - Page Not Found
-              </div>
-            }
-          />
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
       </main>
