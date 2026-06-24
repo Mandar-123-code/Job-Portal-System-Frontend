@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
-import Navbar from "../components/Navbar";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
-import { useNavigate } from "react-router-dom";
 import { ButtonLoader } from "../components/Loader";
 
 function Login() {
@@ -155,7 +154,7 @@ function Login() {
           </form>
           
           <p className="mt-6 text-center text-sm text-gray-600">
-            Don't have an account? <a href="/signup" className="text-indigo-600 font-semibold hover:underline">Sign up</a>
+            Don't have an account? <Link to="/signup" className="text-indigo-600 font-semibold hover:underline">Sign up</Link>
           </p>
 
         </div>

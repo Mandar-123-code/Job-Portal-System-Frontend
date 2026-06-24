@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { signupUser } from "../services/authService";
-import { useNavigate } from "react-router-dom";
 import { ButtonLoader } from "../components/Loader";
 
 function Signup() {
@@ -163,7 +163,7 @@ function Signup() {
           </form>
           
           <p className="mt-6 text-center text-sm text-gray-600">
-            Already have an account? <a href="/login" className="text-indigo-600 font-semibold hover:underline">Log in</a>
+            Already have an account? <Link to="/login" className="text-indigo-600 font-semibold hover:underline">Log in</Link>
           </p>
 
         </div>
